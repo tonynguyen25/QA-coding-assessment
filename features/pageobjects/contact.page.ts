@@ -18,7 +18,7 @@ class ContactPage extends BasePage {
     await regionElement.waitForExist({ timeout: 5000 });
 
     const textBlock = await regionElement.parentElement().getText();
-    const match = textBlock.match(/1[-\s]?\d{3}[-\s]?\d{3}[-\s]?\d{4}/);
+    const match = textBlock.match(/1[-\s]?\d{3}[-\s]?\d{3}[-\s]?\d{4}|1\d{10}/);
     const found = match ? match[0] : 'not found';
 
     if (found !== expected)
