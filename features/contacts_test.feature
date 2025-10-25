@@ -1,11 +1,11 @@
-Feature: Validate Medavie Blue Cross contact information
+Feature: Validate Medavie Blue Cross Contact Information
 
-    Scenario: Verify English Contact Page
-        Given I open the English homepage
-        When I click the Contact link
-        Then I should see the English phone numbers
+  Scenario: English contact page displaus correct phone numbers
+    Given I open the homepage
+    When I navigate to the nav menu and click on "Contact"
+    Then I should be on the Contact page
 
-    Scenario: Verify French Contact Page
-        Given I open the French homepage
-        When I click the Coordonnées link
-        Then I should see the French phone numbers
+  Scenario: French contact page opens
+    Given I open the homepage in French
+    When I navigate to the nav menu and click on "Coordonnées"
+    Then I should be on the Coordonnées page
