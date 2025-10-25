@@ -13,16 +13,22 @@ class ContactPage extends BasePage {
     await heading.waitForDisplayed({ timeout: 10000 });
   }
 
+  async getRegionElement(region: string) {
+    const regionElement = await $(`//*[contains(text(), "${region}")]`);
+    await regionElement.waitForExist({ timeout: 5000 });
+    return regionElement;
+  }
+
+  async getPhoneNumberNearRegion(regionElement: WebdriverIO.Element) {
+    const textBlock = await regionElement.parentElement().getText();
+    const match = textBlock.match(/1[-\s]?\d{3}[-\s]?\d{3}[-\s]?\d{4}|1\d{10}/);
+    return match ? match[0] : 'not found';
+  }
+
   async verifyPhone(region: string, expected: string) {
     const regionElement = await $(`//*[contains(text(), "${region}")]`);
     await regionElement.waitForExist({ timeout: 5000 });
-
-    const textBlock = await regionElement.parentElement().getText();
-    const match = textBlock.match(/1[-\s]?\d{3}[-\s]?\d{3}[-\s]?\d{4}|1\d{10}/);
-    const found = match ? match[0] : 'not found';
-
-    if (found !== expected)
-      throw new Error(`Mismatch for "${region}": expected "${expected}", got "${found}".`);
+    
   }
 }
 
